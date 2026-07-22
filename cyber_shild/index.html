@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Premium Password Security</title>
+    <meta name="description" content="Advanced password strength analysis, safe attack simulation, and secure password generation.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="dark-theme">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="sticky-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i data-feather="shield" class="logo-icon"></i>
+                Cyber<span class="highlight">Shield</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#analyzer" class="nav-link">Analyzer</a></li>
+                <li><a href="#generator" class="nav-link">Generator</a></li>
+                <li><a href="#learn" class="nav-link">Learn</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i data-feather="moon" id="moon-icon"></i>
+                    <i data-feather="sun" id="sun-icon" style="display:none;"></i>
+                </button>
+                <div class="hamburger" id="hamburger" aria-label="Menu" tabindex="0">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="cyber-particles" id="particles-container"></div>
+        <div class="glow-circle glow-1"></div>
+        <div class="glow-circle glow-2"></div>
+        
+        <div class="container hero-content">
+            <h1 class="typing-container">
+                Test Your Password Before <span class="highlight">Hackers</span> Do
+            </h1>
+            <p>Enterprise-grade password strength analysis, advanced attack simulation, and secure credential generation for the modern web.</p>
+            <div class="hero-buttons">
+                <a href="#analyzer" class="btn btn-primary">
+                    <i data-feather="activity"></i> Analyze Strength
+                </a>
+                <a href="#generator" class="btn btn-secondary">
+                    <i data-feather="key"></i> Generate Secure
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analyzer Section -->
+    <section id="analyzer" class="analyzer-section">
+        <div class="container">
+            <h2 class="section-title reveal">Live Security <span class="highlight">Analysis</span></h2>
+            
+            <div class="glass-card analyzer-card reveal">
+                <div class="input-group">
+                    <label for="password-input" class="sr-only">Enter your password</label>
+                    <input type="password" id="password-input" placeholder="Enter your password" autocomplete="off">
+                    <button type="button" id="toggle-password" aria-label="Show password" title="Show password">
+                        <i data-feather="eye" id="eye-icon"></i>
+                    </button>
+                    <button type="button" id="clear-password" aria-label="Clear input" title="Clear input">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                
+                <div class="score-dashboard">
+                    <div class="score-circle-wrapper">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle" id="score-circle"
+                                stroke-dasharray="0, 100"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                        </svg>
+                        <div class="score-text">
+                            <span id="score-number">0</span><br>
+                            <span class="score-label-text">Score</span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-details">
+                        <div class="score-header">
+                            <span id="score-label">Awaiting Input...</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-item" id="req-length">
+                        <i data-feather="x-circle" class="icon"></i> <span class="text">Length (0)</span>
+                    </div>
+                    <div class="analysis-item" id="req-uppercase">
+                        <i data-feather="x-circle" class="icon"></i> <span class="text">Uppercase</span>
+                    </div>
+                    <div class="analysis-item" id="req-lowercase">
+                        <i data-feather="x-circle" class="icon"></i> <span class="text">Lowercase</span>
+                    </div>
+                    <div class="analysis-item" id="req-numbers">
+                        <i data-feather="x-circle" class="icon"></i> <span class="text">Numbers</span>
+                    </div>
+                    <div class="analysis-item" id="req-symbols">
+                        <i data-feather="x-circle" class="icon"></i> <span class="text">Symbols</span>
+                    </div>
+                </div>
+
+                <div class="crack-time-card">
+                    <div class="crack-icon">
+                        <i data-feather="clock"></i>
+                    </div>
+                    <div class="crack-info">
+                        <h3>Estimated Crack Time</h3>
+                        <p id="crack-time-display">Enter a password</p>
+                    </div>
+                </div>
+
+                <div class="suggestions-container" id="suggestions-container" style="display: none;">
+                    <h3><i data-feather="alert-circle"></i> Security Suggestions</h3>
+                    <ul id="suggestions-list"></ul>
+                </div>
+            </div>
+
+            <!-- Attack Simulation -->
+            <div class="glass-card simulation-card reveal">
+                <h3><span class="highlight">Threat Simulation</span> Engine</h3>
+                <p class="sim-desc">Safe, localized demonstration of how threat actors might compromise credentials.</p>
+                
+                <div class="sim-grid">
+                    <div class="sim-box">
+                        <div class="terminal-header">
+                            <div class="terminal-dot dot-red"></div>
+                            <div class="terminal-dot dot-yellow"></div>
+                            <div class="terminal-dot dot-green"></div>
+                        </div>
+                        <h4><i data-feather="cpu"></i> Brute Force</h4>
+                        <p>Exhaustive key search algorithm.</p>
+                        
+                        <div class="sim-screen">
+                            <span id="brute-force-screen">Waiting for target...<span class="sim-cursor"></span></span>
+                        </div>
+                        
+                        <div class="sim-progress-bg">
+                            <div class="sim-progress" id="brute-force-progress"></div>
+                        </div>
+                        
+                        <div class="sim-stats">
+                            <span id="bf-status" class="status-label">IDLE</span>
+                            <span id="bf-attempts">0 keys checked</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sim-box">
+                        <div class="terminal-header">
+                            <div class="terminal-dot dot-red"></div>
+                            <div class="terminal-dot dot-yellow"></div>
+                            <div class="terminal-dot dot-green"></div>
+                        </div>
+                        <h4><i data-feather="database"></i> Dictionary Attack</h4>
+                        <p>Common vulnerability database scan.</p>
+                        
+                        <div class="sim-screen">
+                            <span id="dictionary-screen">Waiting for target...<span class="sim-cursor"></span></span>
+                        </div>
+                        
+                        <div class="sim-progress-bg">
+                            <div class="sim-progress" id="dict-progress"></div>
+                        </div>
+                        
+                        <div class="sim-stats">
+                            <span id="dict-status" class="status-label">IDLE</span>
+                            <span id="dict-attempts">0% scanned</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-outline" id="run-sim-btn" disabled>
+                        <i data-feather="play"></i> Initiate Attack Simulation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="generator-section">
+        <div class="container">
+            <h2 class="section-title reveal">Cryptographic <span class="highlight">Generator</span></h2>
+            
+            <div class="glass-card generator-card reveal">
+                <div class="generated-display">
+                    <span id="generated-password">Select options to generate</span>
+                    <button id="copy-btn" class="icon-btn" aria-label="Copy password" title="Copy password">
+                        <i data-feather="copy"></i>
+                    </button>
+                </div>
+                
+                <div class="gen-controls">
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="length-slider">Entropy Length</label>
+                            <span id="length-display">16</span>
+                        </div>
+                        <input type="range" id="length-slider" min="8" max="64" value="16" class="cyber-slider">
+                    </div>
+                    
+                    <div class="checkbox-grid">
+                        <div class="option-card">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="inc-uppercase" checked>
+                                <span class="checkmark"></span>
+                                Uppercase (A-Z)
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="inc-lowercase" checked>
+                                <span class="checkmark"></span>
+                                Lowercase (a-z)
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="inc-numbers" checked>
+                                <span class="checkmark"></span>
+                                Numerals (0-9)
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="inc-symbols" checked>
+                                <span class="checkmark"></span>
+                                Symbols (!@#$)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-2" id="generate-btn">
+                    <i data-feather="refresh-cw"></i> Generate Token
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Education Section -->
+    <section id="learn" class="education-section">
+        <div class="container">
+            <h2 class="section-title reveal">Threat <span class="highlight">Intelligence</span></h2>
+            <div class="cards-grid">
+                
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="unlock" class="edu-icon"></i>
+                            <h3>Brute Force Attack</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Brute Force</h3>
+                            <p>An attacker systematically submits many passwords with the hope of eventually guessing correctly using automated high-speed computing clusters.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="book-open" class="edu-icon"></i>
+                            <h3>Dictionary Attack</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Dictionary Attack</h3>
+                            <p>A technique defeating authentication mechanisms by trying hundreds of millions of common words, leaked passwords, and known patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="refresh-ccw" class="edu-icon"></i>
+                            <h3>Credential Stuffing</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Credential Stuffing</h3>
+                            <p>Using leaked email/password pairs from one breach to attempt access on other sites, exploiting the common flaw of password reuse.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="smartphone" class="edu-icon"></i>
+                            <h3>Multi-Factor Auth</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Multi-Factor Auth</h3>
+                            <p>Adds a critical layer of defense requiring multiple pieces of evidence: something you know (password) and something you have (app/token).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="briefcase" class="edu-icon"></i>
+                            <h3>Password Managers</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Password Managers</h3>
+                            <p>Encrypted vault software that generates and stores complex, unique credentials for every service, eliminating the need to memorize them.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-feather="shield-off" class="edu-icon"></i>
+                            <h3>Zero Trust</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Zero Trust Architecture</h3>
+                            <p>A security concept requiring strict identity verification for every person and device attempting to access resources, regardless of network location.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="glass-card about-card reveal text-center">
+                <h2 class="section-title" style="margin-bottom: 20px;">About <span class="highlight">CyberShield</span></h2>
+                
+                <div class="mission-statement">
+                    <strong>Mission:</strong> To democratize cybersecurity awareness by providing transparent, enterprise-grade tools that visualize modern authentication vulnerabilities.
+                </div>
+                
+                <p>CyberShield is an advanced front-end educational platform designed to demonstrate password strength algorithms and simulate common adversarial attacks in a safe environment.</p>
+                
+                <div class="security-badge">
+                    <i data-feather="lock"></i> Client-Side Processing Only. No Data is Transmitted.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i data-feather="shield"></i> Cyber<span class="highlight">Shield</span>
+            </div>
+            <p class="footer-sub">Premium Security & Threat Analysis</p>
+            <div class="footer-bottom">
+                &copy; <span id="current-year"></span> CyberShield Systems. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i data-feather="check-circle"></i> Token copied to clipboard
+    </div>
+
+    <!-- Scroll to Top -->
+    <button id="scroll-to-top" aria-label="Scroll to top">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace(); // Initialize Feather Icons
+    </script>
+</body>
+</html>
